@@ -1,0 +1,59 @@
+package ${package.Entity};
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
+
+/**
+    #if(${table.comment})
+     *<p>
+     * $!{table.comment}
+     * </p>
+    #end
+ * @author ${author}
+ * @since ${date}
+ */
+@Data
+#if(${table.convert})
+@ApiModel(value="${package.Entity}.${entity}")
+@Table(name = "${table.name}")
+#end
+#if(${superEntityClass})
+public class ${entity} extends ${superEntityClass}#if(${activeRecord})<${entity}>#end {
+#elseif(${activeRecord})
+public class ${entity} extends Model<${entity}> {
+#else
+public class ${entity} implements Serializable {
+#end
+
+private static final long serialVersionUID = 1L;
+
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+    #if(${field.keyFlag})
+        @Id
+        @Column(name = "${field.name}")
+        #if("$!field.comment" != "")
+        @ApiModelProperty(value="${field.comment}")
+        #else
+        @ApiModelProperty(value="${field.propertyName}")
+        #end
+        private ${field.propertyType} ${field.propertyName};
+    ## 普通字段
+    #else
+    ## -----   存在字段填充设置   -----
+    @Column(name = "${field.name}")
+        #if("$!field.comment" != "")
+        @ApiModelProperty(value="${field.comment}")
+        #else
+        @ApiModelProperty(value="${field.propertyName}")
+        #end
+        private ${field.propertyType} ${field.propertyName};
+    #end
+
+#end
+}

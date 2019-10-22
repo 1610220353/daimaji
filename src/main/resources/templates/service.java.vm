@@ -1,0 +1,21 @@
+package ${package.Service};
+
+import ${package.Entity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import com.myjar.service.AbstractService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+/**
+ * <p>
+ * $!{table.comment} 服务类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+public class ${table.serviceName} extends AbstractService<${table.mapperName}, ${entity}, String> {
+    private Logger logger = LoggerFactory.getLogger(getClass());
+}
