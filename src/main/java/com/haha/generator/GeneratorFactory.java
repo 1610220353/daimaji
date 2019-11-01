@@ -21,7 +21,7 @@ public class GeneratorFactory {
         gc.setEnableCache(false);
         gc.setBaseResultMap(true);
         gc.setBaseColumnList(false);
-        gc.setAuthor("inspur");
+        gc.setAuthor("guohong");
         gc.setServiceName("%sService");
         mpg.setGlobalConfig(gc);
 
